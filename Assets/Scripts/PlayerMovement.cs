@@ -12,13 +12,15 @@ public class PlayerMovement : MonoBehaviour
 
     private GameManager gameManager;
 
-    private bool isOnFloor = true;
+    private bool isOnFloor = true, isWalking, hasWalked;
 
+    [SerializeField]
     private Vector3 moveDir;
 
     [SerializeField]
     private Rigidbody rb;
     private CharacterController controller;
+    private Animator anim;
 
     private GameSettings gameSettings;
 
@@ -27,14 +29,15 @@ public class PlayerMovement : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         controller = GetComponent<CharacterController>();
         gameSettings = FindObjectOfType<GameSettings>();
+        anim = GetComponent<Animator>();
     }
 
     public void Update()
     {
-        if(transform.position.y > 23)
+        /*if(transform.position.y > 23)
         {
             transform.position = new Vector3(transform.position.x, 23, transform.position.z);
-        }
+        }*/
         if(gameManager.gameState == GameManager.GameState.Playing)
         {
             Move();
@@ -54,6 +57,27 @@ public class PlayerMovement : MonoBehaviour
         //transform.position += (transform.TransformDirection(Input.GetAxis("Horizontal") * moveVelocity, 0, Input.GetAxis("Vertical") * moveVelocity)) * Time.deltaTime;
         moveDir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         controller.Move(transform.TransformDirection(moveDir * Time.deltaTime * moveVelocity));
+
+        if (moveDir.x > 0.1f || moveDir.z > 0.1f || moveDir.x < -0.1f || moveDir.z < -0.1f)
+        {
+            isWalking = true;
+            if (!hasWalked)
+            {
+                anim.SetTrigger("walk");
+                hasWalked = true;
+            }
+        }
+        else
+        {
+            isWalking = false;
+            if (hasWalked)
+            {
+                anim.SetTrigger("stopWalk");
+                hasWalked = false;
+            }
+        }
+
+       
     }
     private void PanView()
     {

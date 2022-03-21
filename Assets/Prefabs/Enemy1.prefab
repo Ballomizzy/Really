@@ -1306,7 +1306,7 @@ MonoBehaviour:
   ghostForm: {fileID: 2692738809098835076}
   normalForm: {fileID: 8363454264958191924}
   healthBar: {fileID: 452345033882578440}
-  deadVFX: {fileID: 4639151222870990780, guid: b3a359778333ce94382dd2f559034e2c, type: 3}
+  deadVFX: {fileID: 4639151222870990780, guid: 9bccbccb2a2872746b7693d18cf1a5b6, type: 3}
 --- !u!54 &-4264367629249564488
 Rigidbody:
   m_ObjectHideFlags: 0

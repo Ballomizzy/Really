@@ -139,8 +139,9 @@ public class GameManager : MonoBehaviour
             allNPCS[i].GetComponent<Rigidbody>().isKinematic = false; ;
         }
         Rigidbody playerRB = playerInstance.GetComponent<Rigidbody>();
-        playerRB.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY;
-
+        playerRB.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY 
+                               | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+        playerInstance.GetComponent<Animator>().SetTrigger("die");
         audioManager.PlaySFX("Lose");
     }
 

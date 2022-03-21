@@ -11,6 +11,9 @@ public class Bullet : MonoBehaviour
 
     private AudioManager audioManager;
 
+    [SerializeField]
+    private GameObject bulletImpactVFX;
+
     void Awake()
     {
         audioManager = FindObjectOfType<AudioManager>();
@@ -32,6 +35,7 @@ public class Bullet : MonoBehaviour
             col.gameObject.GetComponent<Rigidbody>().AddForce(transform.forward * bulletImpact * 0.1f, ForceMode.Impulse);
             audioManager.PlaySFX("Ouch", col.transform.position);
         }
+        Destroy(Instantiate(bulletImpactVFX, transform.position, Quaternion.identity), 1f);
         Debug.Log("I hit another stuff");
         Destroy(gameObject);
     }

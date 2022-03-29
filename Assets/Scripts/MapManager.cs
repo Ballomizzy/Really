@@ -8,7 +8,7 @@ using UnityEngine;
 public class MapManager : MonoBehaviour
 {
     [SerializeField]
-    private bool isUnrealMode;
+    public bool isUnrealMode { get; private set; }
 
     [Header("Post Processing")]
     [SerializeField]
@@ -38,6 +38,8 @@ public class MapManager : MonoBehaviour
     private AudioManager audioManger;
     private CameraView vCam;
 
+    private WeaponPickup[] weaponPickupList;
+
     private void Awake()
     {
         gameUIManager = FindObjectOfType<GameUIManager>();
@@ -66,6 +68,8 @@ public class MapManager : MonoBehaviour
         {
             allNPCs[i].SwitchToAttackMode(false);
         }
+        weaponPickupList = FindObjectsOfType<WeaponPickup>();
+        HidePickupWeapons();
     }
 
     private void Update()
@@ -123,6 +127,15 @@ public class MapManager : MonoBehaviour
 
             audioManger.SwitchMusic(false);
             vCam.ShakeCamera(false);
+        }
+        HidePickupWeapons();
+    }
+
+    private void HidePickupWeapons()
+    {
+        for (int i = 0; i < weaponPickupList.Length; i++)
+        {
+            weaponPickupList[i].gameObject.SetActive(isUnrealMode);
         }
     }
 

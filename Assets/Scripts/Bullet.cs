@@ -27,7 +27,6 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        notHitAnything = false;
         if(col.gameObject.GetComponent<NPC>())
         {
             Debug.Log("I hit someone!");
@@ -35,9 +34,13 @@ public class Bullet : MonoBehaviour
             col.gameObject.GetComponent<Rigidbody>().AddForce(transform.forward * bulletImpact * 0.1f, ForceMode.Impulse);
             audioManager.PlaySFX("Ouch", col.transform.position);
         }
-        Destroy(Instantiate(bulletImpactVFX, transform.position, Quaternion.identity), 1f);
-        Debug.Log("I hit another stuff");
-        Destroy(gameObject);
+        if (!(col.gameObject.CompareTag("Player") || col.gameObject.CompareTag("Gun")))
+        {
+            Destroy(Instantiate(bulletImpactVFX, transform.position, Quaternion.identity), 1f);
+            Debug.Log("I hit another stuff");
+            Destroy(gameObject);
+            notHitAnything = false;
+        }
     }
 
     public void SetBulletDetails(int _damageAmount, float _bulletSpeed, float _bulletTime, float _bulletImpact)

@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
 {
-    private enum WeaponType
+    public enum WeaponType
     {
         gun,
         shakabula,
         bulletOf3gun,
+        shotgun,
         sword
     }
     [Header("Weapon Details")]
@@ -21,7 +22,12 @@ public class WeaponManager : MonoBehaviour
     //Space
 
     [SerializeField]
-    private GameObject gunGO, gunBullet, shakabulaGO, shakabulaBullet, bulletOf3GunGO, bulletOf3, swordGO;
+    private GameObject gunGO, gunBullet, 
+                       shakabulaGO, shakabulaBullet, 
+                       bulletOf3GunGO, bulletOf3, 
+                       shotgunGO, shotgunBullet,
+                       swordGO;
+    
     private Sword sword;
 
     private GameManager gameManager;
@@ -66,12 +72,16 @@ public class WeaponManager : MonoBehaviour
                 currentWeapon = Instantiate(gunGO, transform);
                 break;
             case WeaponType.shakabula:
-                weapon = new Weapon("shakabula", 50, 1, 1.4f);
+                weapon = new Weapon("shakabula", 50, 1f, 2f);
                 currentWeapon = Instantiate(shakabulaGO, transform);
                 break;
             case WeaponType.bulletOf3gun:
                 weapon = new Weapon("bulletOf3Gun", 20, 0.05f, 1f);
                 currentWeapon = Instantiate(bulletOf3GunGO, transform);
+                break;
+            case WeaponType.shotgun:
+                weapon = new Weapon("shotgun", 40, 1.5f, 1.4f);
+                currentWeapon = Instantiate(shotgunGO, transform);
                 break;
             case WeaponType.sword:
                 weapon = new Weapon("sword", 20, 0.02f, 0);
@@ -110,6 +120,35 @@ public class WeaponManager : MonoBehaviour
             weaponType = WeaponType.bulletOf3gun;
             InitWeapon();
         }
+        else if (Input.GetKey(KeyCode.Alpha4))
+        {
+            weaponType = WeaponType.shotgun;
+            InitWeapon();
+        }
+    }
+
+    public void SwitchWeapon(WeaponType newWeaponType)
+    {
+        if (newWeaponType == WeaponType.gun)
+        {
+            weaponType = WeaponType.gun;
+            InitWeapon();
+        }
+        else if (newWeaponType == WeaponType.shakabula)
+        {
+            weaponType = WeaponType.shakabula;
+            InitWeapon();
+        }
+        else if (newWeaponType == WeaponType.bulletOf3gun)
+        {
+            weaponType = WeaponType.bulletOf3gun;
+            InitWeapon();
+        }
+        else if (newWeaponType == WeaponType.shotgun)
+        {
+            weaponType = WeaponType.shotgun;
+            InitWeapon();
+        }
     }
 
     public void CheckFired()
@@ -135,7 +174,12 @@ public class WeaponManager : MonoBehaviour
             myTime = 0;
             Use();
         }
-      
+        else if (Input.GetButton("Fire1") && weaponType == WeaponType.shotgun && myTime > weapon.NextTimeToFire)
+        {
+            myTime = 0;
+            Use();
+        }
+
     }
 
     private void Use()
@@ -157,7 +201,13 @@ public class WeaponManager : MonoBehaviour
                 newShakabulaBullet.SetBulletDetails(weapon.DamageAmount, newBulletClassInstance.BulletSpeed, 2f, newBulletClassInstance.BulletImpact);
                 audioManager.PlaySFX("Rocket", transform.position);
                 break;
-
+            case WeaponType.shotgun:
+                Bullet newShotgunBullet = Instantiate(shotgunBullet, transform.position + transform.forward, Quaternion.identity).GetComponent<Bullet>();
+                newShotgunBullet.transform.forward = transform.forward;
+                newBulletClassInstance = new BulletClass(newShotgunBullet.gameObject, 25f, 2f);
+                newShotgunBullet.SetBulletDetails(weapon.DamageAmount, newBulletClassInstance.BulletSpeed, 2f, newBulletClassInstance.BulletImpact);
+                audioManager.PlaySFX("Shotgun", transform.position);
+                break;
             case WeaponType.bulletOf3gun:
                 Bullet new3SideBullet = Instantiate(bulletOf3, transform.position + transform.forward, Quaternion.identity).GetComponent<Bullet>();
                 Bullet new3SideBullet1 = Instantiate(bulletOf3, transform.position + transform.forward, Quaternion.identity).GetComponent<Bullet>();

@@ -1538,6 +1538,8 @@ MonoBehaviour:
   shakabulaBullet: {fileID: 5831465911916236677, guid: c788053b5896a3646b139e4a5f5c5ae0, type: 3}
   bulletOf3GunGO: {fileID: 3950460852401817493, guid: bfd831aae0eacd64c915be5ca60f2969, type: 3}
   bulletOf3: {fileID: 914362665773415272, guid: db1d45d3f299397418efe017b1f4478a, type: 3}
+  shotgunGO: {fileID: 5958125677522769673, guid: 7e40f1ffabfaca54cb65e33be5072e30, type: 3}
+  shotgunBullet: {fileID: 914362665773415272, guid: 0c5ca54bf252a7b4f86dc6cfae91cc17, type: 3}
   swordGO: {fileID: 4789225158148309733, guid: 399d8a4c4e3c0a84eaa04c8f6ac63307, type: 3}
 --- !u!1 &8543909964417331638
 GameObject:

@@ -44,8 +44,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.32, y: 0.29881358, z: 1}
+  m_Center: {x: 0.25, y: 0.35, z: -0.61}
 --- !u!114 &-8122194158786486045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,6 +60,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponType: 1
   pickupVFX: {fileID: 1319776179685083988, guid: 407e02aeabc46de4d816db4ccd6d6876, type: 3}
+  isPickable: 0
 --- !u!1001 &475815522349165903
 PrefabInstance:
   m_ObjectHideFlags: 0

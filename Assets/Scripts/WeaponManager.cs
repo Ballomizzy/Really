@@ -47,7 +47,7 @@ public class WeaponManager : MonoBehaviour
     }
     BulletClass newBulletClassInstance;
 
-    private GameObject currentWeapon;
+    public GameObject currentWeapon { get; private set; }
 
     private AudioManager audioManager;
 

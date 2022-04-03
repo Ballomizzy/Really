@@ -4,6 +4,7 @@ using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.UI;
 using Cinemachine;
 using UnityEngine;
+using System.Linq;
 
 public class MapManager : MonoBehaviour
 {
@@ -38,7 +39,7 @@ public class MapManager : MonoBehaviour
     private AudioManager audioManger;
     private CameraView vCam;
 
-    private WeaponPickup[] weaponPickupList;
+    private List<WeaponPickup> weaponPickupList = new List<WeaponPickup>();
 
     private void Awake()
     {
@@ -68,7 +69,7 @@ public class MapManager : MonoBehaviour
         {
             allNPCs[i].SwitchToAttackMode(false);
         }
-        weaponPickupList = FindObjectsOfType<WeaponPickup>();
+        weaponPickupList = FindObjectsOfType<WeaponPickup>().ToList();
         HidePickupWeapons();
     }
 
@@ -133,12 +134,21 @@ public class MapManager : MonoBehaviour
 
     private void HidePickupWeapons()
     {
-        for (int i = 0; i < weaponPickupList.Length; i++)
+        for (int i = 0; i < weaponPickupList.Count; i++)
         {
             weaponPickupList[i].gameObject.SetActive(isUnrealMode);
         }
     }
 
+    public void AddPickUpWeapons(WeaponPickup weaponPickup)
+    {
+        weaponPickupList.Add(weaponPickup);
+    }
+
+    public void RemovePickUpWeapons(WeaponPickup weaponPickup)
+    {
+        weaponPickupList.Remove(weaponPickup);
+    }
 
     private void PanicBar()
     {

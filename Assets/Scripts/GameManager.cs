@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private int level, noOfEnemies = 3; //false number so it does not auto win when enemy starts with 0;
+    private int level, noOfEnemies = 3, initialAmtOfEnemies = 0; //false number so it does not auto win when enemy starts with 0;
     private float currentTimer, timerThresold;
     public enum GameState
     {
@@ -122,6 +122,8 @@ public class GameManager : MonoBehaviour
 
         //How many enemies?
         noOfEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
+        initialAmtOfEnemies = noOfEnemies;
+        UIManager.enemyAmount.text = noOfEnemies.ToString() + "/" + initialAmtOfEnemies.ToString();
     }
 
     public void LoseGame()
@@ -159,6 +161,7 @@ public class GameManager : MonoBehaviour
     public void DeductEnemy()
     {
         noOfEnemies--;
+        UIManager.enemyAmount.text = noOfEnemies.ToString() + "/" + initialAmtOfEnemies.ToString();
     }
 
     private void SetVariables(int levelData)

@@ -20,6 +20,8 @@ public class GameUIManager : MonoBehaviour
     public GameObject panicBarUI;
     [SerializeField]
     public Image healthBarUI;
+    [SerializeField]
+    public TextMeshProUGUI enemyAmount;
 
     [Space]
     [Header("UI States")]

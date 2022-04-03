@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6693497282983395973}
   - component: {fileID: 2947856065826406044}
   - component: {fileID: 7720887934546603112}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Arch
   m_TagString: MapEnd
   m_Icon: {fileID: 0}
